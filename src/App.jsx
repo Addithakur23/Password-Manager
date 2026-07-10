@@ -7,7 +7,9 @@ import { FiEye,FiEyeOff } from 'react-icons/fi'
 import { LuGrid2X2Plus } from "react-icons/lu";
 import Navbar from './components/Navbar.jsx'
 import Foooter from './components/Foooter.jsx'
+const API_URL = import.meta.env.VITE_API_URL;
 
+fetch(`${API_URL}/api/{endpoint}`)
 function App() {
   const [Website, setWebsite] = useState("")
   const [Password, setPassword] = useState("")
@@ -23,7 +25,7 @@ function App() {
   const [Passwords, setPasswords]=useState([])
 
   async function fetchPassword() {
-     let data=await fetch("http://localhost:3000/api/password")
+     let data=await fetch(`${API_URL}/api/password`)
   let res=await data.json()
   setPasswords(res)
   }
@@ -41,7 +43,7 @@ function App() {
       
       if(Editing && EditId!==null){
 
-        const updatedPasswords= await fetch(`http://localhost:3000/api/password/${EditId}`,{method:"PUT",headers:{
+        const updatedPasswords= await fetch(`${API_URL}/api/password/${EditId}`,{method:"PUT",headers:{
           "Content-Type":"application/json"
         },body:JSON.stringify({Website,Username,Password})})
         const data=await updatedPasswords.json()
@@ -53,7 +55,7 @@ function App() {
         fetchPassword()
       }
       else{
-        await fetch("http://localhost:3000/api/password",{method:"POST",headers:{
+        await fetch(`${API_URL}/api/password`,{method:"POST",headers:{
           "Content-Type":"application/json"
         },body:JSON.stringify({Website,Username,Password})})
          fetchPassword() 
@@ -63,7 +65,7 @@ function App() {
     
    
  async function editPassword(id){
-  let data1=await fetch("http://localhost:3000/api/password")
+  let data1=await fetch(`${API_URL}/api/password`)
   let res=await data1.json()
   let password=res.filter(p=>p._id===id)
 
@@ -75,7 +77,7 @@ function App() {
  }
 
 async function deletePassword(id){
-    let data=await fetch(`http://localhost:3000/api/password/${id}`,{method:"DELETE"})
+    let data=await fetch(`${API_URL}/api/password/${id}`,{method:"DELETE"})
     let res=await data.json()
   fetchPassword()
  }
