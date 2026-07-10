@@ -22,6 +22,7 @@ function App() {
   const [Add, setAdd] = useState(false)
   const [Count, setCount] = useState(0)
   const [Passwords, setPasswords]=useState([])
+  console.log(API_URL)
 
   async function fetchPassword() {
     try {
