@@ -7,9 +7,8 @@ import { FiEye,FiEyeOff } from 'react-icons/fi'
 import { LuGrid2X2Plus } from "react-icons/lu";
 import Navbar from './components/Navbar.jsx'
 import Foooter from './components/Foooter.jsx'
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || 'https://password-manager-backend-d7jr.onrender.com';
 
-fetch(`${API_URL}/api/{endpoint}`)
 function App() {
   const [Website, setWebsite] = useState("")
   const [Password, setPassword] = useState("")
@@ -25,9 +24,17 @@ function App() {
   const [Passwords, setPasswords]=useState([])
 
   async function fetchPassword() {
-     let data=await fetch(`${API_URL}/api/password`)
-  let res=await data.json()
-  setPasswords(res)
+    try {
+      const response = await fetch(`${API_URL}/api/password`);
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+      const res = await response.json();
+      setPasswords(res);
+    } catch (error) {
+      console.error('Failed to load passwords:', error);
+      setPasswords([]);
+    }
   }
    useEffect(() => {
      fetchPassword()
