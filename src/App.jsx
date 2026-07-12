@@ -7,6 +7,10 @@ import { FiEye,FiEyeOff } from 'react-icons/fi'
 import { LuGrid2X2Plus } from "react-icons/lu";
 import Navbar from './components/Navbar.jsx'
 import Foooter from './components/Foooter.jsx'
+import SaveHamburger from './components/SaveHamburger.jsx'
+import DeleteHamburger from './components/DeleteHamburger.jsx'
+import CopyHamburger from './components/CopyHamburger.jsx'
+import UpdateHamburger from './components/UpdateHamburger.jsx'
 const API_URL = import.meta.env.VITE_API_URL || 'https://password-manager-backend-d7jr.onrender.com';
 
 function App() {
@@ -14,6 +18,7 @@ function App() {
   const [Password, setPassword] = useState("")
   const [Username, setUsername] = useState("")
   const [Show, setShow] = useState(false)
+  const [Save, setSave] = useState(false)
   const [showPassword, setshowPassword] = useState(null)
   const [Editing, setEditing] = useState(false)
   const [Visible, setVisible] = useState("Show")
@@ -22,7 +27,9 @@ function App() {
   const [Add, setAdd] = useState(false)
   const [Count, setCount] = useState(0)
   const [Passwords, setPasswords]=useState([])
-  console.log(API_URL)
+  const [Delete, setDelete] = useState(false)
+  const [Copy, setCopy] = useState(false)
+  const [Update, setUpdate] = useState(false)
 
   async function fetchPassword() {
     try {
@@ -35,6 +42,7 @@ function App() {
     } catch (error) {
       console.error('Failed to load passwords:', error);
       setPasswords([]);
+     
     }
   }
    useEffect(() => {
@@ -43,6 +51,7 @@ function App() {
   async function SavePassword(){
     if(!Website || !Username || !Password){
       alert("Please fill all fields")
+      setAdd(false)
       return }
 
       setWebsite(Website)
@@ -59,14 +68,25 @@ function App() {
         setUsername("")
         setPassword("")
         setEditId(null)
-        setEditing(false)
+        setEditing(false) 
+        setTimeout(() => {
+          setUpdate(false)  
+          
+        }, 1000);
         fetchPassword()
       }
       else{
         await fetch(`${API_URL}/api/password`,{method:"POST",headers:{
           "Content-Type":"application/json"
         },body:JSON.stringify({Website,Username,Password})})
-         fetchPassword() 
+        fetchPassword() 
+        setWebsite("")
+        setUsername("")
+        setPassword("")
+        
+        setTimeout(() => {
+          setAdd(false)
+        }, 1000);
       }
      
     }
@@ -87,6 +107,11 @@ function App() {
 async function deletePassword(id){
     let data=await fetch(`${API_URL}/api/password/${id}`,{method:"DELETE"})
     let res=await data.json()
+    if(res){
+      setTimeout(() => {
+        setDelete(false)
+      }, 1000);
+    }
   fetchPassword()
  }
 
@@ -100,12 +125,17 @@ async function deletePassword(id){
     setAlertVisible(true)
     setTimeout(() => {
       setAlertVisible(false)
-    }, 2000);
+      setCopy(false)
+    }, 1000);
   }
   
   return (
     <>
       <Navbar/>
+      {Add ? <SaveHamburger show={!Add}/>:''}
+      {Delete?<DeleteHamburger show={!Delete}/>:''}
+       {Copy?<CopyHamburger show={!Copy}/>:''}
+       {Update ?<UpdateHamburger show={!Update}/>:''}
     <div className="container">
       <div className='heading'>
 
@@ -117,8 +147,6 @@ async function deletePassword(id){
     
     
    { Passwords.length==0 &&  (<div className="noPasswords">No Data To Show</div>)} 
-
-    {/* <div className="AddPassword">Add a Password</div> */}
     
     <div className='inputs'>
    <div className='website_input'><input type="text" placeholder='Website' value={Website} onChange={(e)=>{
@@ -141,9 +169,10 @@ async function deletePassword(id){
     </div>
 
  </div>
-    <div className='saveBtn'><button id='Add' title='Save Password' onClick={()=>{SavePassword(),setAdd(true),setCount(Count+1)}}> <span className='grid_icon'><LuGrid2X2Plus/></span>Save</button></div>
+    <div className='saveBtn'><button id='Add' title='Save Password' onClick={()=>{SavePassword(),setAdd(true),setCount(Count+1),Editing?setUpdate(true):""
+    }}>  <span className='grid_icon'><LuGrid2X2Plus/></span>{Editing?"Update":"Save"}</button></div>
     
-    <div className="passwords">Your Passwords  {AlertVisible && (<span>(Copied!)</span>)}</div> 
+    <div className="passwords">Your Passwords</div> 
 <div className="table-container">
 
     <table>
@@ -181,9 +210,9 @@ async function deletePassword(id){
           <div className='edit' onClick={()=>{editPassword(item._id)}} title="Edit">
             <FaEdit />
           </div>
-      <div className='copy' onClick={()=>{copyPassword(item.Password)}} title="Copy"><FaCopy/>
+      <div className='copy' onClick={()=>{copyPassword(item.Password),setCopy(true)}} title="Copy"><FaCopy/>
       </div>
-      <div className='trash' onClick={()=>{deletePassword(item._id)}} title="Delete"><FaTrash/>
+      <div className='trash' onClick={()=>{deletePassword(item._id) ,setDelete(true)}} title="Delete"><FaTrash/>
       </div>
           </div>
       </td>
