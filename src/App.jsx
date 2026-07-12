@@ -69,11 +69,11 @@ function App() {
         setPassword("")
         setEditId(null)
         setEditing(false) 
+        fetchPassword()
         setTimeout(() => {
           setUpdate(false)  
           
         }, 1000);
-        fetchPassword()
       }
       else{
         await fetch(`${API_URL}/api/password`,{method:"POST",headers:{
@@ -107,12 +107,12 @@ function App() {
 async function deletePassword(id){
     let data=await fetch(`${API_URL}/api/password/${id}`,{method:"DELETE"})
     let res=await data.json()
+    fetchPassword()
     if(res){
       setTimeout(() => {
         setDelete(false)
       }, 1000);
     }
-  fetchPassword()
  }
 
   async function copyPassword(pass){
@@ -146,7 +146,7 @@ async function deletePassword(id){
     <div className='subHeading'>Your Own Password Manager</div>
     
     
-   { Passwords.length==0 &&  (<div className="noPasswords">No Data To Show</div>)} 
+   
     
     <div className='inputs'>
    <div className='website_input'><input type="text" placeholder='Website' value={Website} onChange={(e)=>{
@@ -173,7 +173,7 @@ async function deletePassword(id){
     }}>  <span className='grid_icon'><LuGrid2X2Plus/></span>{Editing?"Update":"Save"}</button></div>
     
     <div className="passwords">Your Passwords</div> 
-<div className="table-container">
+    <div className="table-container">
 
     <table>
        <thead>
@@ -184,8 +184,7 @@ async function deletePassword(id){
       <th>Actions</th>
     </tr>
     </thead>
-   
-  <tbody>
+    { Passwords.length==0 ?  (<td colSpan={5} className="noPasswords">No Data To Show</td>): <tbody>
      
     { Passwords.length >0  && Passwords.map((item,index)=>(
     
@@ -220,11 +219,11 @@ async function deletePassword(id){
         
     )
     )}
-    </tbody>
+    </tbody>}
      </table>
+    
 </div>
     </div>
-   
     <Foooter/>
     </>
   )
