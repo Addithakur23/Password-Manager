@@ -151,7 +151,7 @@ async function deletePassword(id){
     <div className='inputs'>
    <div className='website_input'><input type="text" placeholder='Website' value={Website} onChange={(e)=>{
     setWebsite(e.target.value)
-   }}/></div> 
+   }}/></div> </div>
    <div className='split'>
 
     <div className='username_input'><input type="text" placeholder='Username' value={Username} onChange={(e)=>{
@@ -168,7 +168,7 @@ async function deletePassword(id){
    </div>
     </div>
 
- </div>
+ 
     <div className='saveBtn'><button id='Add' title='Save Password' onClick={()=>{SavePassword(); if (!Editing) setTimeout(() => {
       setAdd(true)
     }, 250);  setCount(Count+1); if (Editing) {setTimeout(() => {
