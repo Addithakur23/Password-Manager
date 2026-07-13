@@ -171,9 +171,9 @@ async function deletePassword(id){
  </div>
     <div className='saveBtn'><button id='Add' title='Save Password' onClick={()=>{SavePassword(); if (!Editing) setTimeout(() => {
       setAdd(true)
-    }, 200);  setCount(Count+1); if (Editing) {setTimeout(() => {
+    }, 250);  setCount(Count+1); if (Editing) {setTimeout(() => {
       setUpdate(true)
-    }, 200); ;}}}>  <span className='grid_icon'><LuGrid2X2Plus/></span>{Editing?"Update":"Save"}</button></div>
+    }, 250); ;}}}>  <span className='grid_icon'><LuGrid2X2Plus/></span>{Editing?"Update":"Save"}</button></div>
     
     <div className="passwords">Your Passwords</div> 
     <div className="table-container">
@@ -216,7 +216,7 @@ async function deletePassword(id){
       </div>
       <div className='trash' onClick={()=>{deletePassword(item._id) ,setTimeout(() => {
         setDelete(true)
-      }, 200); }} title="Delete"><FaTrash/>
+      }, 250); }} title="Delete"><FaTrash/>
       </div>
           </div>
       </td>
