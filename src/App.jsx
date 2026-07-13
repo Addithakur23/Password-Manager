@@ -79,10 +79,10 @@ function App() {
         await fetch(`${API_URL}/api/password`,{method:"POST",headers:{
           "Content-Type":"application/json"
         },body:JSON.stringify({Website,Username,Password})})
-        fetchPassword() 
         setWebsite("")
         setUsername("")
         setPassword("")
+        fetchPassword() 
         
         setTimeout(() => {
           setAdd(false)
@@ -169,7 +169,7 @@ async function deletePassword(id){
     </div>
 
  </div>
-    <div className='saveBtn'><button id='Add' title='Save Password' onClick={()=>{SavePassword(),setAdd(true),setCount(Count+1),Editing?setUpdate(true):""
+    <div className='saveBtn'><button id='Add' title='Save Password' onClick={()=>{SavePassword(),Editing?"":setAdd(true),setCount(Count+1),Editing?setUpdate(true):""
     }}>  <span className='grid_icon'><LuGrid2X2Plus/></span>{Editing?"Update":"Save"}</button></div>
     
     <div className="passwords">Your Passwords</div> 

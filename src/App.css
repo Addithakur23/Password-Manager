@@ -284,6 +284,17 @@ footer{
 
 }
 
+.line{
+  position: absolute;
+  border: 2px solid rgb(32, 213, 68);
+  width: 98%;
+  top: 35px;
+  left: 0px;
+  animation: slide 1.5s;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-delay: 0s;
+}
+
 @keyframes slide {
   from{
     width: 0%;
@@ -293,16 +304,6 @@ footer{
   }
 }
 
-.line{
-  position: absolute;
-  border: 2px solid rgb(169, 5, 169);
-  width: 98%;
-  top: 35px;
-  left: 0px;
-  animation: slide 1.5s;
-  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  animation-delay: 0s;
-}
 
 @media (max-width: 873px) {
   .container{
