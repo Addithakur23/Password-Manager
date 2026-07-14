@@ -102,7 +102,7 @@ input{
 }
 
 #Add{
-  padding: 11px 20px;
+  padding: 13px 20px;
   background-color: rgb(55, 186, 55);
   color: white;
   font-size: 15px;
@@ -111,7 +111,6 @@ input{
   border-radius: 35px;
   cursor: pointer;
   margin-top: 8px;
-  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,7 +119,9 @@ input{
 
 .grid_icon{
   font-size: 27px;
-  text-align: center;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
