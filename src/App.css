@@ -128,7 +128,7 @@ input{
 
 .container{
   width: 70%;
-  padding: 29px;
+  padding: 29px 20px;
   margin: auto;
   border-radius: 4px;
   background-color: white;

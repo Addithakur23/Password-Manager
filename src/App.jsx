@@ -151,7 +151,7 @@ async function deletePassword(id){
     <div className='inputs'>
    <div className='website_input'><input type="text" placeholder='Website' value={Website} onChange={(e)=>{
     setWebsite(e.target.value)
-   }}/></div> </div>
+   }}/></div> 
    <div className='split'>
 
     <div className='username_input'><input type="text" placeholder='Username' value={Username} onChange={(e)=>{
@@ -166,6 +166,7 @@ async function deletePassword(id){
   <button type="button" id='eye' title={!(Show)?"Show Password":"Hide Password"} onClick={()=>{setShow(!Show) }}>{  Show?<FiEye/>:<FiEyeOff/>}</button>
         
    </div>
+    </div>
     </div>
 
  
