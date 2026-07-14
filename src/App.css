@@ -28,6 +28,7 @@ h1{
 .passwords{
   display: flex;
   margin-bottom: 15px;
+      padding: 0px 12px;
   font-size: 25px;
   font-weight: bolder;
 }
@@ -35,13 +36,15 @@ h1{
 table{
   border-collapse:collapse;
   table-layout:fixed;
+  overflow:hidden;
+  border-radius:12px;
   width: 100%;
   margin-bottom: 40px;
   text-align: center;
 }
 
 .table-container{
-  overflow: hidden;
+    padding: 0px 10px;
   margin: auto;
   border-radius: 10px;
 }
