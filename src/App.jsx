@@ -199,7 +199,7 @@ async function deletePassword(id){
           
           <div className="password">
             <div className='codedPassword'>
-            {showPassword ===item._id ?item.Password  : item.Password.replace(/./g,"*") } 
+            {showPassword ===item._id ?item.Password  : item.Password?.replace(/./g,"*") } 
 
             </div>
             <button title={showPassword===item._id? 'Hide password':'Show password'} onClick={()=>{setshowPassword(showPassword===item._id ? null:item._id)}}>{showPassword===item._id ? <FiEye />:<FiEyeOff />
