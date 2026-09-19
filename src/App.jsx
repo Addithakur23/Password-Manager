@@ -11,7 +11,7 @@ import SaveHamburger from './components/SaveHamburger.jsx'
 import DeleteHamburger from './components/DeleteHamburger.jsx'
 import CopyHamburger from './components/CopyHamburger.jsx'
 import UpdateHamburger from './components/UpdateHamburger.jsx'
-const API_URL = import.meta.env.VITE_API_URL || 'https://password-manager-backend-d7jr.onrender.com';
+const API_URL = 'https://password-manager-backend-d7jr.onrender.com';
 
 function App() {
   const [Website, setWebsite] = useState("")
