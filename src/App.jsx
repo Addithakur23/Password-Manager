@@ -11,7 +11,9 @@ import SaveHamburger from './components/SaveHamburger.jsx'
 import DeleteHamburger from './components/DeleteHamburger.jsx'
 import CopyHamburger from './components/CopyHamburger.jsx'
 import UpdateHamburger from './components/UpdateHamburger.jsx'
-const API_URL = 'https://password-manager-backend-d7jr.onrender.com';
+// Vite injects VITE_* variables during the production build.
+// Set VITE_API_URL in the hosting platform's build environment (or .env.production).
+const API_URL = import.meta.env.VITE_API_URL || '';
 
 function App() {
   const [Website, setWebsite] = useState("")
@@ -33,6 +35,7 @@ function App() {
 
   async function fetchPassword() {
     try {
+      console.log("Api url",API_URL)
       const response = await fetch(`${API_URL}/api/password`);
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
@@ -52,7 +55,8 @@ function App() {
     if(!Website || !Username || !Password){
       alert("Please fill all fields")
       setAdd(false)
-      return }
+      return 
+    }
 
       setWebsite(Website)
       setUsername(Username)
@@ -188,7 +192,7 @@ async function deletePassword(id){
       <th>Actions</th>
     </tr>
     </thead>
-    { Passwords.length==0 ?  (<td colSpan={5} className="noPasswords">No Data To Show</td>): <tbody>
+    { Passwords.length==0 ? <tbody><tr><td colSpan={5} className="noPasswords">No Data To Show</td></tr></tbody> : <tbody>
      
     { Passwords.length >0  && Passwords.map((item,index)=>(
     
@@ -206,9 +210,7 @@ async function deletePassword(id){
 }</button> </div>
 
 </td>
-        <td>
-         
-          
+        <td>          
           <div className="actions">
           <div className='edit' onClick={()=>{editPassword(item._id)}} title="Edit">
             <FaEdit />
